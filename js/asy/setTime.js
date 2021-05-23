@@ -38,7 +38,23 @@ setTimeout(
 
 */
 
+/*
 let timerId = setTimeout(function tick() {
     console.log('째깍');
     timerId = setTimeout(tick, 2000); // (*)
 }, 2000);
+*/
+
+function printNumbers (from, to) {
+    let current = from;
+    
+    let timer = setInterval(() => {
+        console.log(current);
+        if (current === to) {
+            clearInterval(timer);
+        }
+        current++;
+    }, 1000)
+}
+
+printNumbers(0, 10)
