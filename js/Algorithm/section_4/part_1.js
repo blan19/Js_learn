@@ -12,6 +12,9 @@ function solution(n, arr){
         let sum = 0;
         let value = String(x).split("");
         let len = value.length;
+
+        //reduce 함수를 사용할 수도 있다는 것을 기억하자!
+        //String(x).split("").reduce((a,b) => a + Number(b), 0);
         
         for (let i = 0; i < len; i++) {
             sum += Number(value[i]);

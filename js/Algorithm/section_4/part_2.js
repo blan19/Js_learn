@@ -43,6 +43,7 @@ function isPrime(num){
     }
     return true;
 }
+
 function solution(arr){
     let answer=[];
     for(let x of arr){
