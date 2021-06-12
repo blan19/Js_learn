@@ -30,3 +30,5 @@ function recurFibo (n) {
     }
 }
 
+// 꼬리 재귀 (nextLast, last) = (last, su,)
+

@@ -11,7 +11,7 @@ function permute (arr, start, end) {
     } else {
         for (let i = start; i < end + 1; i++) {
             swap(arr, start, i);
-            console.log(`For : ${arr}`);
+            console.log(`For : $`);
             permute(arr, start + 1, end);
             swap(arr, start, i);
         }
