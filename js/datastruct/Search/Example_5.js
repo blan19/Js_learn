@@ -28,4 +28,4 @@ function hashFindUnique (arr) {
     return false;
 }
 
-console.log(hashFindUnique(array));
+// 이진트리로 구현
