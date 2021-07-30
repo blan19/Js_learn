@@ -4,8 +4,8 @@ const input = [
   [20, "Sunyoung"],
 ];
 
-// input[0] 내림차순
-// 나이가 같다면 input[1] 인덱스값 내림차순
+// input[0] 오름차순
+// 나이가 같다면 input[1] 인덱스값 오름차순
 
 const sortedArr = input.sort((a, b) => {
   return a[0] - b[0] || input.indexOf(a) - input.indexOf(b);
