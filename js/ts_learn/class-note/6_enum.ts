@@ -26,6 +26,7 @@ enum Answer {
 // askQeustion("y");
 // askQeustion("yes");
 
+// 범위를 정해줘 복잡성을 낮춰주고 예외 처리에 도움이 되어 준다
 const askQeustion = (answer: Answer): void => {
   if (answer === Answer.Yes) {
     console.log("정답");
@@ -35,4 +36,4 @@ const askQeustion = (answer: Answer): void => {
   }
 };
 
-askQeustion("Y");
+askQeustion(Answer.Yes);
