@@ -45,4 +45,48 @@ graph.addEdge(3, 4, 10);
 graph.addEdge(4, 5, 100);
 graph.addEdge(1, 5, 88);
 graph.removeVertex(5);
-console.log(graph.edges);
+
+class DirectedGraph {
+  constructor() {
+    this.edges = {};
+  }
+
+  addVertex(vertex) {
+    this.edges[vertex] = {};
+  }
+
+  addEdge(origVertex, destVertex, weigth) {
+    if (weigth === undefined) {
+      weigth = 0;
+    }
+    this.edges[origVertex][destVertex] = weigth;
+  }
+
+  removeEdge(origVertex, destVertex) {
+    if (
+      this.edges[origVertex] &&
+      this.edges[origVertex][destVertex] != undefined
+    ) {
+      delete this.edges[origVertex][destVertex];
+    }
+  }
+
+  removeVertex(vertex) {
+    for (let adjacentVertex in this.edges[vertex]) {
+      console.log(adjacentVertex);
+      console.log(vertex);
+      this.removeEdge(adjacentVertex, vertex);
+    }
+    delete this.edges[vertex];
+  }
+}
+
+const digraph = new DirectedGraph();
+digraph.addVertex("A");
+digraph.addVertex("B");
+digraph.addVertex("C");
+digraph.addEdge("A", "B", 1);
+digraph.addEdge("B", "C", 2);
+digraph.addEdge("C", "A", 3);
+digraph.removeVertex("A");
+console.log(digraph.edges);
