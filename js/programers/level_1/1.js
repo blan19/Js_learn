@@ -1,3 +1,4 @@
+// 완주하지 못한 선수
 const participant = ["mislav", "stanko", "mislav", "ana"];
 const completion = ["stanko", "ana", "mislav"];
 
