@@ -21,7 +21,7 @@ const bfs = (graph, startNode) => {
     const node = needVisit.shift();
     if (!visited.includes(node)) {
       visited.push(node);
-      needVisit = [...needVisit, ...graph[node]];
+      needVisit = [...graph[node], ...needVisit];
     }
   }
 

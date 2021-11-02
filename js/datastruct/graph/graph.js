@@ -79,6 +79,23 @@ class DirectedGraph {
     }
     delete this.edges[vertex];
   }
+
+  bfs(startVertex) {
+    const queue = [];
+    const visited = {};
+    queue.push(startVertex);
+
+    while (queue.length) {
+      let vertex = queue.shift();
+      if (!visited[vertex]) {
+        visited[vertex] = true;
+        console.log(vertex);
+        for (let adj in this.edges[vertex]) {
+          queue.push(adj);
+        }
+      }
+    }
+  }
 }
 
 const digraph = new DirectedGraph();
@@ -88,5 +105,4 @@ digraph.addVertex("C");
 digraph.addEdge("A", "B", 1);
 digraph.addEdge("B", "C", 2);
 digraph.addEdge("C", "A", 3);
-digraph.removeVertex("A");
-console.log(digraph.edges);
+digraph.bfs("A");

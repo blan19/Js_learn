@@ -9,23 +9,15 @@ const arr = [
   [5, 4, 2],
 ];
 
-let hash = {};
+const solution = (N, road, K) => {
+  const dist = Array(N + 1).fill(Infinity);
+  const adj = Array.from({ length: N + 1 }, () => []);
 
-if (hash[arr[0][0]] && hash[arr[0][0]][arr[0][1]]) {
-  hash[arr[0][0]][arr[0][1]] = 3;
-}
+  console.log(dist);
+  console.log(adj);
+};
 
-console.log(hash);
-
-// const solution = (N, road, K) => {
-//   let graph = {};
-//   N.map((element) => {
-//     if (!graph[element[0]][element[1]]) {
-//       graph[element[0]][element[1]] = element[2];
-//     }
-//   });
-//   console.log(graph);
-// };
+console.log(solution(5, arr, 3));
 
 // 그래프
 // 힙에 루트 저장
