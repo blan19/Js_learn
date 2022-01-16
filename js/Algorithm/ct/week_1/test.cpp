@@ -2,11 +2,20 @@
 
 using namespace std;
 
-int v[10];
+struct Point
+{
+  int x, y;
+  Point(int x, int y) : x(x), y(y) {}
+  Point() {x = -1; y = -1;}
 
-int main() {
-  unordered_map<string, int> umap;
-  umap.insert({'test1', 1});
-  cout << umap.first << "\n";
-  return 0;
-}
+  bool operator < (const Point & a) const{
+    if(x == a.x) return y < a.y;
+    return x < a.x;
+  }
+};
+
+struct percent
+{
+  int x, y;
+  double w, d, l;
+} a[6];
