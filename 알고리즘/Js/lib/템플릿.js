@@ -15,4 +15,6 @@ function solution() {
 // ! 아웃풋
 console.log(solution());
 
+// ! best
+
 // * 백준
