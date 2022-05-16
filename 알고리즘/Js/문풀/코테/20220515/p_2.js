@@ -31,3 +31,7 @@ function solution(n) {
 console.log(solution(n));
 
 // ! best
+
+// const solution = (n) => {
+//   return parseInt([...n.toString(3)].reverse().join(""), 3);
+// };
