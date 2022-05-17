@@ -10,23 +10,24 @@ const input = fs
   .map((el) => +el);
 
 // ! 솔루션
-const [t, ...n] = input;
+const [t, ...inp] = input;
 
 for (let i = 0; i < t; i++) {
-  let answer = Array.from(Array(2)).fill(0);
-  const fibo = (n) => {
-    if (n === 0) {
-      answer[0]++;
-      return 0;
-    } else if (n === 1) {
-      answer[1]++;
-      return 1;
-    } else {
-      return fibo(n - 2) + fibo(n - 1);
-    }
-  };
-  fibo(n[i]);
-  console.log(answer[0], answer[1]);
+  const n = inp[i];
+
+  const fibonacci = [
+    [1, 0],
+    [0, 1],
+  ];
+
+  for (let j = 2; j <= n; j++) {
+    fibonacci[j] = [
+      fibonacci[j - 1][0] + fibonacci[j - 2][0],
+      fibonacci[j - 1][1] + fibonacci[j - 2][1],
+    ];
+  }
+
+  console.log(fibonacci[n].join(" "));
 }
 
 // ! 주의사항
