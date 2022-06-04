@@ -5,14 +5,11 @@ const expression = "100-200*300-500+20";
 // const expression = "100*200-300*500+20";
 
 function calc(sign, val1, val2) {
-  console.log(val1, val2, sign);
   if (sign === "*") {
     return String(Number(val1) * Number(val2));
   } else if (sign === "+") {
     return String(Number(val1) + Number(val2));
   } else if (sign === "-") {
-    console.log(val1, val2, sign);
-    console.log(String(Number(val1) - Number(val2)));
     return String(Number(val1) - Number(val2));
   }
 }
@@ -33,6 +30,7 @@ function permutation(arr, selectNum) {
 
 // ! 솔루션
 function solution(expression) {
+  let answer = [];
   let arr = [];
   let temp = [];
   const sign = ["*", "+", "-"];
@@ -51,35 +49,32 @@ function solution(expression) {
 
   permutation(sign, 3).forEach((sub) => {
     temp = [...arr];
-    console.log("배열", temp);
-    console.log("순열", sub);
-
-    console.log("단계 1");
     while (true) {
       if (!temp.includes(sub[0])) {
         break;
       }
       let idx = temp.indexOf(sub[0]);
-      temp.splice(idx - 1, idx + 1, calc(sub[0], temp[idx - 1], temp[idx + 1]));
+      temp.splice(idx - 1, 3, calc(sub[0], temp[idx - 1], temp[idx + 1]));
     }
-    console.log(temp);
 
-    console.log("단계 2");
-    console.log(temp);
+    while (true) {
+      if (!temp.includes(sub[1])) {
+        break;
+      }
+      let idx = temp.indexOf(sub[1]);
+      temp.splice(idx - 1, 3, calc(sub[1], temp[idx - 1], temp[idx + 1]));
+    }
 
-    console.log("단계 3");
-    console.log(temp);
-    // temp.forEach((val, valIdx, origin) => {
-    //   if (val === sub[0]) {
-    //     origin.splice(
-    //       valIdx - 1,
-    //       valIdx,
-    //       calc(val, origin[valIdx - 1], origin[valIdx + 1])
-    //     );
-    //   }
-    // });
+    while (true) {
+      if (!temp.includes(sub[2])) {
+        break;
+      }
+      let idx = temp.indexOf(sub[2]);
+      temp.splice(idx - 1, 3, calc(sub[2], temp[idx - 1], temp[idx + 1]));
+    }
+    answer.push(Number(Math.abs(temp[0])));
   });
-  return;
+  return answer.sort((a, b) => b - a)[0];
 }
 
 // ! 주의사항
@@ -90,3 +85,64 @@ function solution(expression) {
 console.log(solution(expression));
 
 // ! best
+
+//   const numbers = expression.split(/[^0-9]/).map(v => Number(v));
+//   const operators = expression.split(/[0-9]/).filter(v => v);
+
+//   const formula = getFormula(numbers, operators);
+
+//   const cases = [
+//     ['*', '+', '-'], ['*', '-', '+'], ['+', '*', '-'],
+//     ['+', '-', '*'], ['-', '+', '*'], ['-', '*', '+'],
+//   ];
+
+//   return Math.max(...cases.map(operators => {
+//     let result = formula.slice();
+//     operators.forEach(operator => {
+//       result = computeByTargetOperator(result, operator);
+//     });
+
+//     return Math.abs(...result);
+//   }));
+// };
+
+// const getFormula = (numbers, operators) => {
+//   const formula = [];
+
+//   numbers.forEach((number, i) => {
+//     formula.push(number);
+
+//     if (operators[i]) {
+//       formula.push(operators[i]);
+//     }
+//   });
+
+//   return formula;
+// }
+
+// const computeByTargetOperator = (formula, targetOperator) => {
+//   const computation = {
+//     '+': (a, b) => a + b,
+//     '-': (a, b) => a - b,
+//     '*': (a, b) => a * b,
+//   }
+
+//   const stack = [];
+//   for (let i = 0; i < formula.length; i += 1) {
+//     const target = formula[i];
+//     if (target === targetOperator) {
+//       const previousValue = stack.pop();
+//       const nextValue = formula[i + 1];
+
+//       const result = computation[targetOperator](previousValue, nextValue);
+
+//       stack.push(result);
+//       i += 1;
+//       continue;
+//     }
+
+//     stack.push(target);
+//   }
+
+//   return stack;
+// };
