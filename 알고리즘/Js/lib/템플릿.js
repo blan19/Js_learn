@@ -19,7 +19,8 @@ console.log(solution());
 
 // * 백준
 const fs = require("fs");
-const filePath = process.platform === "linux" ? "/dev/stdin" : "../input.txt";
+const filePath =
+  process.platform === "linux" ? "/dev/stdin" : "../../input.txt";
 
 // ! 인풋
 
