@@ -1,7 +1,9 @@
 // * 프로그래머스
 
 // ! 인풋
-const s = "110010101001";
+// const s = "110010101001";
+// const s = "01110";
+const s = "1111111";
 
 // ! 솔루션
 function solution(s) {
@@ -11,14 +13,14 @@ function solution(s) {
 function recur(s, cnt, sum) {
   if (s === "1") return [cnt, sum];
   const stk = [];
-  // console.log(s, cnt, sum);
   s.split("").forEach((ch) => {
     if (ch !== "0") stk.push(ch);
     else sum++;
   });
-  const temp = changeBinary(stk.join(""));
 
-  // return recur(, cnt + 1, sum);
+  const temp = changeBinary(stk.length);
+
+  return recur(temp, cnt + 1, sum);
 }
 
 function changeBinary(s) {
