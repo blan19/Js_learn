@@ -1,22 +1,30 @@
 // * 프로그래머스
 
 // ! 인풋
-// const dirs = "ULURRDLLU";
-const dirs = "LULLLLLLU";
+const dirs = "ULURRDLLU";
+// const dirs = "LULLLLLLU";
 
 // ! 솔루션
 function solution(dirs) {
-  let answer = 1;
+  let answer = 0;
   let pos = [5, 5];
   const N = 11;
   let map = Array.from(Array(N), () => Array.from(Array(N)).fill(0));
+  let set = new Set();
   map[5][5] = 1;
 
   dirs.split("").forEach((dir) => {
-    pos = move(dir, pos);
-    if (map[pos[0]][pos[1]] === 0) {
-      // console.log(pos, dir);
-      map[pos[0]][pos[1]] = 1;
+    const [y, x] = pos;
+    pos = move(dir, y, x);
+    const [ny, nx] = pos;
+
+    if (
+      !set.has(`${y}${x}${ny}${nx}`) &&
+      !set.has(`${ny}${nx}${y}${x}`) &&
+      `${y}${x}${ny}${nx}` !== `${ny}${nx}${y}${x}`
+    ) {
+      set.add(`${y}${x}${ny}${nx}`);
+      set.add(`${ny}${nx}${y}${x}`);
       answer++;
     }
   });
@@ -24,28 +32,23 @@ function solution(dirs) {
   return answer;
 }
 
-function move(ch, pos) {
-  const [y, x] = moveHnadler(pos);
+function move(ch, y, x) {
+  const [ny, nx] = moveHnadler(y, x);
 
-  console.log(pos, ch);
-  if ((x < 0 && ch === "L") || (x >= 11 && ch === "R")) return pos;
-  else if ((y < 0 && ch === "D") || (y >= 11 && ch === "U")) return pos;
-  else return [y, x];
+  if ((nx < 0 && ch === "L") || (nx >= 11 && ch === "R")) return [y, x];
+  else if ((ny < 0 && ch === "D") || (ny >= 11 && ch === "U")) return [y, x];
+  else return [ny, nx];
 
-  function moveHnadler(pos) {
+  function moveHnadler(y, x) {
     switch (ch) {
       case "U":
-        pos[0] = pos[0] - 1;
-        return pos;
+        return [y - 1, x];
       case "D":
-        pos[0] = pos[0] + 1;
-        return pos;
+        return [y + 1, x];
       case "R":
-        pos[1] = pos[1] + 1;
-        return pos;
+        return [y, x + 1];
       case "L":
-        pos[1] = pos[1] - 1;
-        return pos;
+        return [y, x - 1];
       default:
         return;
     }
@@ -62,3 +65,27 @@ function move(ch, pos) {
 console.log(solution(dirs));
 
 // ! best
+
+function solution(dirs) {
+  var answer = 0;
+  let p = [0, 0];
+  const visit = [];
+
+  for (let i of dirs) {
+    const cur_p = p.slice();
+    if (i == "U" && p[1] < 5) p[1]++;
+    else if (i == "D" && p[1] > -5) p[1]--;
+    else if (i == "R" && p[0] < 5) p[0]++;
+    else if (i == "L" && p[0] > -5) p[0]--;
+
+    const st = p.join("") + cur_p.join("");
+    const nd = cur_p.join("") + p.join("");
+
+    if (!visit.includes(st) && st != nd) {
+      visit.push(st);
+      visit.push(nd);
+    }
+  }
+  answer = visit.length / 2;
+  return answer;
+}
