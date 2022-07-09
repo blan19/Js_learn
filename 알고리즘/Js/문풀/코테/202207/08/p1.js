@@ -23,7 +23,6 @@ function solution(n, works) {
 
 // ! 로직
 // * 루프는 한 번, O(n) / o(logN)
-// * 투포인터 알고리즘?, 슬라이딩 윈도우?
 
 // ! 아웃풋
 console.log(solution(n, works));
