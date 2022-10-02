@@ -1,10 +1,3 @@
-class Node {
-  constructor({ key, value }) {
-    this.key = key;
-    this.value = value;
-  }
-}
-
 class Heap {
   constructor() {
     this.items = [];
@@ -85,68 +78,19 @@ class MinHeap extends Heap {
 
   poll() {
     let item = this.items[0];
-    this.items[0] = this.items[this.items.length - 1];
-    this.items.pop();
+    this.items[0] = this.items.pop();
     this.bubbleDown();
     return item;
   }
 }
 
-class MaxHeap extends Heap {
-  bubbleDown() {
-    let index = 0;
+const heap = new MinHeap();
 
-    while (
-      this.leftChild(index) &&
-      (this.rightChild(index).key > this.items[index].key ||
-        this.leftChild(index).key > this.items[index].key)
-    ) {
-      let biggerIndex = this.rightChildIndex(index);
-
-      if (
-        this.rightChild(index).key &&
-        this.rightChild(index).key > this.items[biggerIndex].key
-      ) {
-        biggerIndex = this.rightChildIndex(index);
-      }
-
-      this.swap(biggerIndex, index);
-      index = biggerIndex;
-    }
-  }
-
-  bubbleUp() {
-    let index = this.items.length - 1;
-    while (
-      this.parent(index) &&
-      this.parent(index).key < this.items[index].key
-    ) {
-      this.swap(this.parentIndex(index), index);
-      index = this.parentIndex(index);
-    }
-  }
-
-  add(item) {
-    const node = new Node(item);
-    this.items[this.items.length] = node;
-    this.bubbleUp();
-  }
-
-  poll() {
-    let item = this.items[0];
-    this.items[0] = this.items[this.items.length - 1];
-    this.items.pop();
-    this.bubbleDown();
-    return item;
-  }
-}
-
-const min = new MinHeap();
-min.add({ key: 1, value: "hi" });
-min.add({ key: 4, value: "hi" });
-min.add({ key: 3, value: "hi" });
-min.add({ key: 6, value: "hi" });
-min.add({ key: 1, value: "hi" });
-console.log(min.items);
-console.log(min.poll());
-console.log(min.poll());
+heap.add(2);
+heap.add(4);
+heap.add(8);
+heap.add(1);
+// heap.poll();
+console.log(heap);
+// heap.poll();
+console.log(heap);

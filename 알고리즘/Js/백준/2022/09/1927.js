@@ -1,10 +1,3 @@
-class Node {
-  constructor({ key, value }) {
-    this.key = key;
-    this.value = value;
-  }
-}
-
 class Heap {
   constructor() {
     this.items = [];
@@ -14,7 +7,7 @@ class Heap {
 
   leftChildIndex = (index) => index * 2 + 1;
 
-  rightChildIndex = (index) => index * 2 + 2;
+  rightChildIndex = (index) => index * 2 + 1;
 
   parent = (index) => this.items[this.parentIndex(index)];
 
@@ -28,12 +21,16 @@ class Heap {
 }
 
 class MinHeap extends Heap {
+  constructor() {
+    super();
+  }
+
   bubbleUp = () => {
     let index = this.items.length - 1;
     const lastInsertedNode = this.items[index];
 
     while (index > 0) {
-      if (this.parent(index).key > lastInsertedNode.key) {
+      if (this.parent(index) > lastInsertedNode) {
         this.parent(index) = this.items[index];
         index = this.parentIndex(index);
       } else break;
@@ -47,55 +44,75 @@ class MinHeap extends Heap {
     const size = this.size();
     const rootNode = this.peek();
 
-    while(this.leftChild(index)) {
+    while (this.leftChild(index)) {
       const leftChildIndex = this.leftChildIndex(index);
       const rightChildIndex = this.rightChildIndex(index);
 
       const smallerChildIndex =
-        rightChildIndex < size && this.items[rightChildIndex].key < this.items[leftChildIndex].key
+        rightChildIndex < size &&
+        this.items[rightChildIndex] < this.items[leftChildIndex]
           ? rightChildIndex
           : leftChildIndex;
 
-      if(this.items[smallerChildIndex].key <= rootNode.key) {
+      if (this.items[smallerChildIndex] <= rootNode) {
         this.items[index] = this.items[smallerChildIndex];
         index = smallerChildIndex;
-      } else break
+      } else break;
     }
 
     this.items[index] = rootNode;
   };
 
   insert = (item) => {
-    const node = new Node(item);
-    this.items[this.items.length] = node;
+    this.items[this.items.length] = item;
     this.bubbleUp();
   };
 
   poll = () => {
     const size = this.size();
-    const rootNode = this.peek();
+    const root = this.peek();
 
-    if(size <= 0) return undefined;
-    if(size === 1) this.items = [];
+    if (size <= 0) return undefined;
+    if (size === 1) this.items = [];
     else {
       this.items[0] = this.items.pop();
       this.bubbleDown();
     }
 
-    return rootNode;
+    return root;
   };
 }
 
+// * 백준
+const fs = require("fs");
+const filePath =
+  process.platform === "linux" ? "/dev/stdin" : "../../input.txt";
 
-const minHeap = new MinHeap();
+const input = fs.readFileSync(filePath).toString().split("\n");
 
-minHeap.insert({key: 1, value: "hello, world"});
-minHeap.insert({key: 2, value: "hello, world"});
-minHeap.insert({key: 5, value: "hello, world"});
-minHeap.insert({key: 4, value: "hello, world"});
-minHeap.insert({key: 9, value: "hello, world"});
+const [N, ...rest] = input;
 
-console.log(minHeap.poll());
-console.log(minHeap);
-console.log(minHeap.poll());
-console.log(minHeap);
+const solution = () => {
+  const minHeap = new MinHeap()
+  for(let i = 0; i < N; i++) {
+    if(rest[i] === "0") {
+      const result = minHeap.poll();
+      if(result === undefined) console.log(0);
+      else console.log(result);
+    } else minHeap.insert(parseInt(rest[i]));
+  }
+};
+
+solution()
+
+// ! 인풋
+
+// ! 솔루션
+
+// ! 주의사항
+
+// ! 로직
+
+// ! 아웃풋
+
+// ! best

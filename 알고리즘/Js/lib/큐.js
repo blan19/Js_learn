@@ -1,3 +1,102 @@
+
+
+class ArrayQueue {
+  constructor() {
+    this.queue = [];
+    this.front = 0;
+    this.rear = 0;
+  }
+
+  enqueue(value) {
+    this.queue[this.rear++] = value;
+  }
+
+  dequeue() {
+    const value = this.queue[this.front];
+    delete this.queue[this.front];
+    this.front += 1;
+    return value;
+  }
+
+  peek() {
+    return this.queue[this.front];
+  }
+
+  size() {
+    return this.rear - this.front;
+  }
+}
+
+class Node {
+  constructor(value) {
+    this.value = value;
+    this.next = null;
+  }
+}
+
+class LinkedQueue {
+  constructor() {
+    this.head = null;
+    this.tail = null;
+    this.size = 0;
+  }
+
+  enqueue(value) {
+    const node = new Node(value);
+    if (this.head === null) this.head = this.tail = node;
+    else {
+      this.tail.next = node;
+      this.tail = node;
+    }
+    this.size += 1;
+  }
+
+  dequeue() {
+    const value = this.head.value;
+    this.head = this.head.next;
+    this.size -= 1;
+    return value;
+  }
+
+  peek() {
+    return this.head.value;
+  }
+}
+
+class CircularQueue {
+  constructor(maxSize) {
+    this.maxSize = maxSize;
+    this.queue = [];
+    this.front = 0;
+    this.rear = 0;
+    this.size = 0;
+  }
+
+  enqueue(value) {
+    if (this.isFull()) return;
+    this.queue[this.rear++] = value;
+    this.rear = (this.rear + 1) % this.maxSize;
+    this.size += 1;
+  }
+
+  dequeue() {
+    const value = this.queue[this.front];
+    delete this.queue[this.front];
+    this.front = (this.front + 1) % this.maxSize;
+    this.size -= 1;
+    return value;
+  }
+
+  isFull() {
+    return this.size === this.maxSize;
+  }
+
+  peek() {
+    return this.queue[this.front];
+  }
+}
+
+
 class Node {
   constructor({ key, value }) {
     this.key = key;
@@ -86,16 +185,14 @@ class MinHeap extends Heap {
   };
 }
 
+class PriorityQueue extends MinHeap {
+  constructor() {
+    super()
+  }
 
-const minHeap = new MinHeap();
+  enqueue = (key, value) => this.insert({ key, value });
 
-minHeap.insert({key: 1, value: "hello, world"});
-minHeap.insert({key: 2, value: "hello, world"});
-minHeap.insert({key: 5, value: "hello, world"});
-minHeap.insert({key: 4, value: "hello, world"});
-minHeap.insert({key: 9, value: "hello, world"});
+  dequeue = () => this.poll();
 
-console.log(minHeap.poll());
-console.log(minHeap);
-console.log(minHeap.poll());
-console.log(minHeap);
+  isEmpty = () => this.items.length <= 0;
+}

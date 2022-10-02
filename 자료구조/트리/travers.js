@@ -22,6 +22,7 @@ class BinaryTree {
   }
   // 코드 생략
   inOrder() {
+    inOrderHandler(this._root);
     function inOrderHandler(node) {
       if (!node) return;
       inOrderHandler(node.left);
@@ -31,6 +32,7 @@ class BinaryTree {
   }
   // 코드 생략
   postOrder() {
+    postOrderHandler(this._root);
     function postOrderHandler(node) {
       if (node.left) postOrderHandler(node.left);
       if (node.right) postOrderHandler(node.right);
